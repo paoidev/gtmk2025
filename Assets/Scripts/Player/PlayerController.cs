@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private CinemachineCamera CMCam;
     [SerializeField] private Camera cam;
     [SerializeField] CinemachineOrbitalFollow orbitalFollow;
+    [SerializeField] Animator animator;
 
     [Header("Movement settings")]
     public float baseMoveSpeed = 5f;
@@ -63,10 +64,14 @@ public class PlayerController : MonoBehaviour
 
         if (isMoving)
         {
+            animator.SetBool("run", true);
             Vector3 lookDirection = new Vector3(move.x, 0f, move.z);
             Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
-
+        }
+        else
+        {
+            animator.SetBool("run", false);
         }
     }
 
